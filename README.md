@@ -48,9 +48,7 @@ pip install -r requirements.txt
 Запуск
 ```
 
-Внести в .ENV свои токены телеграм-ботов
-
-# Из дирректории cafe_azu_bot/app/
+# Из директории cafe_azu_bot/app/
 
 python3 main.py
 ```
@@ -61,6 +59,7 @@ alembic revision --autogenerate -m 'YOUR MESSAGE'
 alembic upgrade head
 ```
 
+Для запуска необходимо внести в .ENV свои токены телеграм-ботов
 
 ### Технологии
 Проект написан на Python/AIOGRAM/SQLALCHEMY, а все используемые технологии удобно расположены в файле requirements.txt
