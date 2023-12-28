@@ -45,7 +45,6 @@ class RestaurantCRUD(BaseCRUD):
             return result.scalars().all()
 
     async def update_restaurant(self, restaurant_id: int, new_data: dict):
-        # new_data['updated'] = datetime.now()
         async with AsyncSessionLocal() as session:
             result = await session.execute(select(self.model).filter(self.model.id == restaurant_id))
             reservation = result.scalar()

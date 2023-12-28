@@ -22,7 +22,6 @@ class CRUDTable(BaseCRUD):
             return [db_obj.id, db_obj.table_number, db_obj.restaurant_id, db_obj.capacity, db_obj.group]
 
     async def update_table(self, table_id: int, new_data: dict):
-        # new_data['updated'] = datetime.now()
         async with AsyncSessionLocal() as session:
             result = await session.execute(select(self.model).filter(self.model.id == table_id))
             reservation = result.scalar()
@@ -95,13 +94,11 @@ class CRUDTable(BaseCRUD):
 
     async def choose_optimal_tables(self, available_tables, guest_count):
         grouped_tables = defaultdict(list)
-        # разделяем столы по группам и создаем словарь
         for table in available_tables:
             group = table.group
             grouped_tables[group].append(table)
         grouped_tables = dict(grouped_tables)
-        # Удаляем группы, где общая сумма вместимости меньше количества гостей
-        # и сортируем столы в оставшихся группах по вместимости
+
         group_to_delete = []
         for group, tables in grouped_tables.items():
             if sum([table.capacity for table in tables]) < guest_count:
@@ -112,7 +109,7 @@ class CRUDTable(BaseCRUD):
         if group_to_delete:
             for group in group_to_delete:
                 del grouped_tables[group]
-        # Получаем группу с минимальной общей суммой вместимости всех столов
+
         if not grouped_tables:
             return None
 
@@ -123,8 +120,7 @@ class CRUDTable(BaseCRUD):
             )
         )
         optimal_group_tables = grouped_tables[min_group]
-        # выбираем оптимальное количество столов с нужной вместимостью
-        # и возвращаем список этих столов
+
         matching_tables = []
         total_capacity = 0
         for table in optimal_group_tables:

@@ -15,7 +15,6 @@ from app.crud.base import BaseCRUD
 class ReservationCRUD(BaseCRUD):
     model = Reservation
 
-    # Копия reservation_crud.create, думаю стоит удалить
     async def create_reservation(self, reservation_data):
         validate = validate_reservation_data(reservation_data)
         if validate:
@@ -46,7 +45,6 @@ class ReservationCRUD(BaseCRUD):
                 return "Данные о переданном ID бронирования отсутствуют в базе"
 
     async def read_reservation_by_date(self, reservation_date_str):
-        # reservation_date = datetime.fromisoformat(reservation_date_str)
         reservation_date = datetime.strptime(reservation_date_str, "%d%m%Y").date()
         async with AsyncSessionLocal() as session:
             result = await session.execute(select(self.model).options(
@@ -84,18 +82,6 @@ class ReservationCRUD(BaseCRUD):
                 return reservations
             else:
                 return "В базе нет информации о бронированиях на актуальные даты"
-
-    # async def read_actual_reservations_by_client(self, user_id):
-    #     async with AsyncSessionLocal() as session:
-    #         current_date = date.today()
-    #         actual = select(Reservation).where(
-    #             (current_date <= Reservation.reservation_date) & (Reservation.user_id == user_id))
-    #         result = await session.execute(actual)
-    #         reservations = result.scalars().all()
-    #         if reservations:
-    #             return reservations
-    #         else:
-    #             return "В базе нет информации о бронированиях на актуальные даты"
 
     async def read_actual_reservations_by_client(self, user_id):
         async with AsyncSessionLocal() as session:

@@ -6,7 +6,6 @@ from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.core.db import Base, AsyncSessionLocal
-# from app.crud.dinnerset import dinnerset_crud
 from app.models.reservations_dinnersets import (
     association_table as reservations_dinnersets,
 )
@@ -67,7 +66,7 @@ class Reservation(Base):
         количества для объекта бронирования.
         :return: Возвращает список
         """
-        from app.crud.dinnerset import dinnerset_crud  # Локальный импорт
+        from app.crud.dinnerset import dinnerset_crud
 
         association_query = (select(
             reservations_dinnersets.c.dinner_set_id,
@@ -88,9 +87,6 @@ class Reservation(Base):
                 for ds, quantity in dinnerset_id_quantities
             ]
         return dinnerset_names_quantities
-
-    # def __repr__(self):
-    #     return f"Бронь пользователя: {self.user.name} " f"на {self.reservation_date}"
 
     def __repr__(self):
         try:

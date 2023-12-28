@@ -11,16 +11,6 @@ from app.crud.validators import validate_user_data
 class UserCRUD(BaseCRUD):
     model = User
 
-    # async def create(self, user_data):
-    #     validate = validate_user_data(user_data)
-    #     if validate:
-    #         return validate
-    #     query = insert(self.model).values(**user_data).returning(self.model.id)
-    #     async with AsyncSessionLocal() as session:
-    #         result = await session.execute(query)
-    #         await session.commit()
-    #         return result.mappings().first()
-
     async def create(self, user_data):
         validate = validate_user_data(user_data)
         if validate:
@@ -34,7 +24,6 @@ class UserCRUD(BaseCRUD):
             return result
 
     async def update_user(self, user_id: int, new_data: dict):
-        # new_data['updated'] = datetime.now()
         async with AsyncSessionLocal() as session:
             result = await session.execute(select(self.model).filter(self.model.id == user_id))
             reservation = result.scalar()

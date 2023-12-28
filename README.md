@@ -47,6 +47,9 @@ pip install -r requirements.txt
 ```
 Запуск
 ```
+
+Внести в .ENV свои токены телеграм-ботов
+
 # Из дирректории cafe_azu_bot/app/
 
 python3 main.py
