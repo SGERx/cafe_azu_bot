@@ -59,7 +59,7 @@ alembic revision --autogenerate -m 'YOUR MESSAGE'
 alembic upgrade head
 ```
 
-Для запуска необходимо внести в .ENV свои токены телеграм-ботов
+Для запуска необходимо внести в .ENV свои токены телеграм-ботов, а также данные об используемой Google-таблице
 
 ### Технологии
 Проект написан на Python/AIOGRAM/SQLALCHEMY, а все используемые технологии удобно расположены в файле requirements.txt
